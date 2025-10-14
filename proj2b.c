@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <pthread.h>
 
 //pointer is array
 int *Y; //resultant vector
@@ -9,6 +10,9 @@ int *X; //vector
 	// Y = AX where A is m*n, X is n (n*1), Y is m (m*1) 
 int m; //rows
 int n; //columns
+                               
+void* multiply(void* argument);
+//function prototype
 
 int main() {
 
@@ -42,6 +46,21 @@ for( int i = 0; i < n; i++){
 X[i] = rand() % 100;           // filling vector (x) with random num
 }
 
+pthread_t threads[m]; //preassigning threads
+int threadArg[m];  // tells threads what row to work on
+for(int i = 0; i < m; i++) {
+
+threadArg[i] = i; // assigning row 
+pthread_create(&threads[i], NULL, multiply, &threadArg[i]); //creating threads and having them execute multiply func.
+
+}
+
+for (int i = 0; i < m; i++) {
+
+pthread_join(threads[i], NULL); //ensures threads chill out and not screw something up
+
+}
+
 printf("Matrix:\n");
 printf("-----------------------\n");
 for( int i = 0; i < m; i++){           //printing the matrix
@@ -56,6 +75,13 @@ printf("Vector:\n");
 printf("-----------------------\n");
 for( int i = 0; i < n; i++){
 printf("%3d ", X[i]);             //printing the vector
+}
+printf("\n\n");
+
+printf("Result:\n");
+printf("-----------------------\n");
+for( int i = 0; i < m; i++){
+printf("%3d ", Y[i]);             //printing the result vector
 }
 printf("\n\n");
 
@@ -74,3 +100,18 @@ free(X);
 
 
 }
+
+void* multiply(void* argument) {
+
+int row = *(int*)argument; //dereferencing argument
+Y[row] = 0; 
+
+for (int i = 0; i < n; i++) {
+
+Y[row] += A[row][i] * X[i]; //the multiplication
+}
+
+pthread_exit(NULL); //exit
+
+}
+
