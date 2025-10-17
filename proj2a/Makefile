@@ -1,4 +1,4 @@
-CC = clang
+CC = gcc
 
 SRCS = proj2a.c
 
@@ -8,7 +8,7 @@ default:
 	$(CC) -o $(TARGET) $(SRCS) -lpthread
 
 clean:
-	rm -f $(TARGET) core
+	rm -f $(TARGET) *.core
 
 run: default
 	./$(TARGET)

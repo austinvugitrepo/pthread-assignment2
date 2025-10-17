@@ -1,8 +1,8 @@
 CC = gcc
 
-SRCS = proj2b.c
+SRCS = proj2c.c
 
-TARGET = proj2b
+TARGET = proj2c
 
 default:
 	$(CC) -o $(TARGET) $(SRCS) -lpthread
