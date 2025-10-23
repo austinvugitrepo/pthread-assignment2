@@ -41,9 +41,4 @@ proj2c.c
 - If all else fails please compile manually via this format:
     [ gcc -o "executable name" "program name" -lpthread ]
      then [ ./"program executable"] in the current directory (add extra arguments depending on the part)
-
-
-
-
-
-
+- To run proj2b.c in a docker container: docker pull austinvudockerrepo/whalehub:project2_b
