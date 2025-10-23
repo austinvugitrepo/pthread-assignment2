@@ -17,8 +17,10 @@ void* multiply(void* argument);
 int main() {
 
 printf("Enter the amount of rows: ");
+fflush(stdout);
 scanf("%d", &m);
 printf("Enter the amount of columns: ");
+fflush(stdout);
 scanf("%d", &n);
 
 Y = malloc(m * sizeof(int)); //allocating memory for result vector (Y)
